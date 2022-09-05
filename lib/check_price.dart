@@ -7,7 +7,6 @@ import 'package:http/http.dart' as http;
 Future<Price> fetchData() async {
   final String btcUrl =
       'https://min-api.cryptocompare.com/data/price?fsym=BTC&tsyms=USD';
-  final String demoUrl = 'https://jsonplaceholder.typicode.com/albums/1';
   final response = await http.get(Uri.parse(btcUrl));
 
   if (response.statusCode == 200) {
@@ -42,25 +41,6 @@ class Price {
   "title": "quidem molestiae enim"
 }
  */
-class Album {
-  final int userId;
-  final int id;
-  final String title;
-
-  const Album({
-    required this.userId,
-    required this.id,
-    required this.title,
-  });
-
-  factory Album.fromJson(Map<String, dynamic> json) {
-    return Album(
-      userId: json['userId'],
-      id: json['id'],
-      title: json['title'],
-    );
-  }
-}
 
 void main() => runApp(const MyApp());
 

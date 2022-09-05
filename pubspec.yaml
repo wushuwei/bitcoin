@@ -37,6 +37,8 @@ dependencies:
 
   url_launcher: ^6.1.5
 
+  geolocator: '^9.0.1'
+
   http: ^0.13.5
 
 dev_dependencies:
