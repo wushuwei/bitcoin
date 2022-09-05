@@ -38,12 +38,7 @@ class MyHomePage extends StatelessWidget {
                 final url = Uri.parse(
                   'https://dev-yakuza.posstree.com/en/',
                 );
-                if (await canLaunchUrl(url)) {
-                  launchUrl(url);
-                } else {
-                  // ignore: avoid_print
-                  print("Can't launch $url");
-                }
+                await launchUrl(url);
               },
               child: const Text('Web Link'),
             ),
@@ -54,36 +49,21 @@ class MyHomePage extends StatelessWidget {
                   path: 'dev-yakuza@gmail.com',
                   query: 'subject=Hello&body=Test',
                 );
-                if (await canLaunchUrl(url)) {
-                  launchUrl(url);
-                } else {
-                  // ignore: avoid_print
-                  print("Can't launch $url");
-                }
+                await launchUrl(url);
               },
               child: const Text('Mail to'),
             ),
             ElevatedButton(
               onPressed: () async {
                 final url = Uri.parse('tel:+1 555 010 999');
-                if (await canLaunchUrl(url)) {
-                  launchUrl(url);
-                } else {
-                  // ignore: avoid_print
-                  print("Can't launch $url");
-                }
+                await launchUrl(url);
               },
               child: const Text('Tel'),
             ),
             ElevatedButton(
               onPressed: () async {
                 final url = Uri.parse('sms:5550101234');
-                if (await canLaunchUrl(url)) {
-                  launchUrl(url);
-                } else {
-                  // ignore: avoid_print
-                  print("Can't launch $url");
-                }
+                await launchUrl(url);
               },
               child: const Text('SMS'),
             ),
@@ -91,5 +71,14 @@ class MyHomePage extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Future<void> launchUrl(Uri url) async {
+    if (await canLaunchUrl(url)) {
+      launchUrl(url);
+    } else {
+      // ignore: avoid_print
+      print("Can't launch $url");
+    }
   }
 }
