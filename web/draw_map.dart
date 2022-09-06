@@ -16,17 +16,24 @@ class MapAsGame extends FlameGame {
   late double x = 0.0;
   late double y = 0.0;
 
+  late Sprite block;
 
   @override
-  Future<Function> onLoad() {
-
+  Future<void> onLoad() async {
+    // other loads omitted
+    final image = await images.load('two.png');
+    block = Sprite(image);
   }
 
   @override
   void render(Canvas canvas) {
     // drawRect(canvas);
+    // drawImage(canvas);
 
-    drawImage(canvas);
+    block.render(canvas
+        ,position: Vector2(x, y)
+        ,size: Vector2(16.0, 16.0)
+    );
   }
 
 
