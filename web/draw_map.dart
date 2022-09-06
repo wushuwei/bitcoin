@@ -28,6 +28,8 @@ class MapAsGame extends FlameGame {
   late TextPaint textPaint;
 
   late Future<Position> current_position;
+  late double current_x;
+  late double current_y;
 
   Future<Position> locateUser() async {
     return Geolocator
@@ -46,9 +48,12 @@ class MapAsGame extends FlameGame {
 
     current_position = locateUser() ;
     current_position.then((value) {
-      x = value.latitude;
-      y = value.longitude + 180;
+      current_x = value.latitude;
+      current_y = value.longitude;
     });
+
+
+
 
   }
 
@@ -67,14 +72,21 @@ class MapAsGame extends FlameGame {
     );
     camera.followComponent(player);
 
+    //geo
+    x = current_x / 180 * screenWidth;
+    y = (current_y + 180) / 180 * screenHeight;
+
     double distance = math.sqrt(math.pow(x2 -x, 2) +math.pow(y2-y, 2));
 
-    final message = '(x:' + x.toString()
-                  + ', y:' + y.toString()
-                  + ')   (x2:' + x2.toString()
-                  + ', y2:' + y2.toString()
+    final message = '(' + x.toString()
+                  + ',' + y.toString()
+                  + ')   (' + x2.toString()
+                  + ',' + y2.toString()
                   + ')  distance = '
-                  + distance.toString();
+                  + distance.toString()
+                  + ' current(' + current_x.toString()
+                  + ',' + current_y.toString()
+                  + ')';
 
     textPaint.render(canvas,
         message,
@@ -88,8 +100,8 @@ class MapAsGame extends FlameGame {
     x = (x + 0.0) % screenWidth;
     y = (y + 0.0) % screenHeight;
 
-    x2 = (x2 + 2.0) % screenWidth;
-    y2 = (y2 + 4.0) % screenHeight;
+    x2 = (x + 100.0) % screenWidth;
+    y2 = (y + 0.0) % screenHeight;
   }
 
   Future<Sprite> preLoadImage(String imageName) async {
