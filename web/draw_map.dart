@@ -13,6 +13,7 @@ final imagesLoader = Images();
 
 class MapAsGame extends FlameGame {
   late Size screenSize;
+
   late double x = 0.0;
   late double y = 0.0;
 
@@ -22,10 +23,16 @@ class MapAsGame extends FlameGame {
   late Sprite metTogether;
   late Sprite onePerson;
 
+  late double screenWidth;
+  late double screenHeight;
+
   @override
   Future<void> onLoad() async {
     metTogether = await preLoadImage('two.png');
     onePerson = await preLoadImage('one.jpg');
+
+    screenWidth = size[0];
+    screenHeight = size[1];
   }
 
   @override
@@ -42,11 +49,12 @@ class MapAsGame extends FlameGame {
 
   @override
   void update(double dt) {
-    x = (x + 1.0) % 320;
-    y = (y + 1.0) % 320;
 
-    x2 = (x2 + 2.0) % 320;
-    y2 = (y2 + 4.0) % 320;
+    x = (x + 1.0) % screenWidth;
+    y = (y + 1.0) % screenHeight;
+
+    x2 = (x2 + 2.0) % screenWidth;
+    y2 = (y2 + 4.0) % screenHeight;
   }
 
   Future<Sprite> preLoadImage(String imageName) async {
