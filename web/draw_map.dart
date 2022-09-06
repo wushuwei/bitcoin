@@ -37,9 +37,6 @@ class MapAsGame extends FlameGame {
 
   @override
   void render(Canvas canvas) {
-    // drawRect(canvas);
-    // drawImage(canvas);
-
     metTogether.render(canvas,
         position: Vector2(x, y), size: Vector2(16.0, 16.0));
 
