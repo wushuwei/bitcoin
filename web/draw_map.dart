@@ -2,14 +2,9 @@ import 'package:flame/components.dart';
 import 'package:flame/game.dart';
 import 'package:flame/palette.dart';
 import 'dart:math' as math;
-
-// import 'package:flame/flame.dart';
-// import 'package:flame/sprite.dart';
-
+import 'package:geolocator/geolocator.dart';
 import 'package:flutter/widgets.dart';
-// import 'dart:ui';
 import 'dart:async';
-import 'dart:ui' as ui;
 import 'package:flame/cache.dart';
 
 final imagesLoader = Images();
@@ -32,6 +27,12 @@ class MapAsGame extends FlameGame {
   late TextComponent distance_text;
   late TextPaint textPaint;
 
+  late Future<Position> current_position;
+
+  Future<Position> locateUser() async {
+    return Geolocator
+        .getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+  }
   @override
   Future<void> onLoad() async {
     metTogether = await preLoadImage('two.png');
@@ -42,6 +43,12 @@ class MapAsGame extends FlameGame {
 
     final style = TextStyle(color: BasicPalette.white.color);
     textPaint = TextPaint(style: style);
+
+    current_position = locateUser() ;
+    current_position.then((value) {
+      x = value.latitude;
+      y = value.longitude + 180;
+    });
 
   }
 
@@ -78,8 +85,8 @@ class MapAsGame extends FlameGame {
   @override
   void update(double dt) {
 
-    x = (x + 1.0) % screenWidth;
-    y = (y + 1.0) % screenHeight;
+    x = (x + 0.0) % screenWidth;
+    y = (y + 0.0) % screenHeight;
 
     x2 = (x2 + 2.0) % screenWidth;
     y2 = (y2 + 4.0) % screenHeight;
