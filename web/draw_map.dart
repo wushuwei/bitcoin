@@ -1,6 +1,8 @@
 import 'package:flame/components.dart';
 import 'package:flame/game.dart';
 import 'package:flame/palette.dart';
+import 'dart:math' as math;
+
 // import 'package:flame/flame.dart';
 // import 'package:flame/sprite.dart';
 
@@ -58,8 +60,17 @@ class MapAsGame extends FlameGame {
     );
     camera.followComponent(player);
 
+    double distance = math.sqrt(math.pow(x2 -x, 2) +math.pow(y2-y, 2));
+
+    final message = '(x:' + x.toString()
+                  + ', y:' + y.toString()
+                  + ')   (x2:' + x2.toString()
+                  + ', y2:' + y2.toString()
+                  + ')  distance = '
+                  + distance.toString();
+
     textPaint.render(canvas,
-        'Flame is awesome',
+        message,
         Vector2(10, 10),
         anchor: Anchor.topLeft);
   }
