@@ -92,6 +92,10 @@ class MapAsGame extends FlameGame {
         message,
         Vector2(10, 10),
         anchor: Anchor.topLeft);
+
+    //draw a line
+    drawLine(canvas, x, y, x2, y2);
+
   }
 
   @override
@@ -115,6 +119,16 @@ class MapAsGame extends FlameGame {
     bgPaint.color = Color(0xff576574);
     canvas.drawRect(bgRect, bgPaint);
   }
+
+  void drawLine(Canvas canvas, x1, y1, x2, y2) {
+    Paint bgPaint = Paint();
+    bgPaint.color = Color(BasicPalette.white.color.value);
+    Offset p1 = Offset(x1, y1);
+    Offset p2 = Offset(x2, y2);
+    canvas.drawLine(p1, p2, bgPaint);
+  }
+
+
 }
 
 void main() {
