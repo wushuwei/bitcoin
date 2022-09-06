@@ -1,5 +1,6 @@
 import 'package:flame/components.dart';
 import 'package:flame/game.dart';
+import 'package:flame/palette.dart';
 // import 'package:flame/flame.dart';
 // import 'package:flame/sprite.dart';
 
@@ -26,6 +27,9 @@ class MapAsGame extends FlameGame {
   late double screenWidth;
   late double screenHeight;
 
+  late TextComponent distance_text;
+  late TextPaint textPaint;
+
   @override
   Future<void> onLoad() async {
     metTogether = await preLoadImage('two.png');
@@ -33,15 +37,31 @@ class MapAsGame extends FlameGame {
 
     screenWidth = size[0];
     screenHeight = size[1];
+
+    final style = TextStyle(color: BasicPalette.white.color);
+    textPaint = TextPaint(style: style);
+
   }
 
   @override
   void render(Canvas canvas) {
     metTogether.render(canvas,
-        position: Vector2(x, y), size: Vector2(16.0, 16.0));
+        position: Vector2(x, y), size: Vector2(32.0, 32.0));
 
     onePerson.render(canvas,
         position: Vector2(x2, y2), size: Vector2(32.0, 32.0));
+
+    final player = SpriteComponent(
+      sprite: metTogether,
+      size: metTogether.srcSize,
+      anchor: Anchor.center,
+    );
+    camera.followComponent(player);
+
+    textPaint.render(canvas,
+        'Flame is awesome',
+        Vector2(10, 10),
+        anchor: Anchor.topLeft);
   }
 
   @override
